@@ -20,7 +20,7 @@ export class ApiService {
   }
 
   getData(): Observable<any> {
-    return this.http.get(apiBE)
+    return this.http.get(`${apiBE}/ncovid/overview`)
       .pipe(
         catchError(this.handleError('get data failed'))
       );
