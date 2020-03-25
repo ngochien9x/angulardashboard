@@ -25,6 +25,7 @@ export class DashboardComponent implements OnInit {
     this.apiService.getData(body)
       .subscribe(res => {
         console.log(res);
+        this.globalCases = res.data
       });
   }
 }

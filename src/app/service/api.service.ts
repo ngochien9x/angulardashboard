@@ -3,19 +3,7 @@ import { Observable, of, throwError } from 'rxjs';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { catchError, tap, map } from 'rxjs/operators';
 
-const apiKompa = "https://corona-api.kompa.ai/graphql";
-const httpOptions = {
-  headers: new HttpHeaders({
-    "origin": "https://corona.kompa.ai",
-    "authority": "corona-api.kompa.ai",
-    "accept": "*/*",
-    "content-type": "application/json",
-    "referer": "https://corona.kompa.ai/",
-    "sec-fetch-mode": "cors",
-    "Sec-Fetch-Dest": "empty",
-    "hien": "hien"
-  }
-)};
+const apiBE = "http://localhost:3000/";
 
 @Injectable({
   providedIn: 'root'
@@ -32,7 +20,7 @@ export class ApiService {
   }
 
   getData(body): Observable<any> {
-    return this.http.post(apiKompa, body, httpOptions)
+    return this.http.post(apiBE, body)
       .pipe(
         catchError(this.handleError('get data failed'))
       );
