@@ -3,7 +3,7 @@ import { Observable, of, throwError } from 'rxjs';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { catchError, tap, map } from 'rxjs/operators';
 
-const apiBE = "http://localhost:3000/";
+const apiBE = "http://localhost:3000";
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +19,7 @@ export class ApiService {
     }
   }
 
-  getData(): Observable<any> {
+  getOverViewData(): Observable<any> {
     return this.http.get(`${apiBE}/ncovid/overview`)
       .pipe(
         catchError(this.handleError('get data failed'))

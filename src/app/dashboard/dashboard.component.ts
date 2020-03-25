@@ -12,6 +12,7 @@ export class DashboardComponent implements OnInit {
   public globalCases: number;
   public globalLastUpdated: string;
   public vietnamLastUpdated: string;
+  public totalDeadGlobal: number;
 
   constructor(public apiService: ApiService) { }
   
@@ -21,10 +22,10 @@ export class DashboardComponent implements OnInit {
   }
 
   getData() {
-    this.apiService.getData()
+    this.apiService.getOverViewData()
       .subscribe(res => {
         console.log(res);
-        this.globalCases = res.data
+        this.globalCases = res.data.totalConfirmed
       });
   }
 }
