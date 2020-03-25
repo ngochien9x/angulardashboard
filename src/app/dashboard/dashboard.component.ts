@@ -21,8 +21,7 @@ export class DashboardComponent implements OnInit {
   }
 
   getData() {
-    const body = {"operationName":"countries","variables":{},"query":"query countries {\n  globalCasesToday {\n    country\n    totalCase\n    totalDeaths\n    totalRecovered\n    longitude\n    latitude\n    __typename\n  }\n  provinces {\n    Province_Name\n    Province_Id\n    Lat\n    Long\n    Confirmed\n    Deaths\n    Recovered\n    Last_Update\n    __typename\n  }\n}\n"};
-    this.apiService.getData(body)
+    this.apiService.getData()
       .subscribe(res => {
         console.log(res);
         this.globalCases = res.data

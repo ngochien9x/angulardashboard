@@ -19,8 +19,8 @@ export class ApiService {
     }
   }
 
-  getData(body): Observable<any> {
-    return this.http.post(apiBE, body)
+  getData(): Observable<any> {
+    return this.http.get(apiBE)
       .pipe(
         catchError(this.handleError('get data failed'))
       );
