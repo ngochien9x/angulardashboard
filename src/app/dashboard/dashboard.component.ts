@@ -9,23 +9,76 @@ import { ApiService } from 'app/service/api.service';
 })
 export class DashboardComponent implements OnInit {
 
-  public globalCases: number;
-  public globalLastUpdated: string;
-  public vietnamLastUpdated: string;
-  public totalDeadGlobal: number;
+  public coronaGlobal: {
+    cases: number,
+    died: number,
+    recoverd: number,
+    lastUpdated: string
+  }
+  public coronaVietnam: {
+    cases: number,
+    died: number,
+    recoverd: number,
+    lastUpdated: string
+  }
 
   constructor(public apiService: ApiService) { }
-  
   ngOnInit() {
-    this.globalCases = 0;
+    this.coronaGlobal = {
+      cases: 0,
+      died: 0,
+      recoverd: 0,
+      lastUpdated: ''
+    };
+    this.coronaVietnam = {
+      cases: 0,
+      died: 0,
+      recoverd: 0,
+      lastUpdated: ''
+    };
     this.getData();
+    this.getDeadData();
+    this.getRecoveredData();
+    this.getCountriesProvinces();
   }
 
   getData() {
     this.apiService.getOverViewData()
       .subscribe(res => {
         console.log(res);
-        this.globalCases = res.data.totalConfirmed
+        this.coronaGlobal.cases = res.data.totalConfirmed;
       });
+  }
+
+  getDeadData() {
+    this.apiService.getDeadData()
+      .subscribe(res => {
+        console.log(res);
+        this.coronaGlobal.died = res.data.totalDeaths;
+      });
+  }
+
+  getRecoveredData() {
+    this.apiService.getRecoveredData()
+      .subscribe(res => {
+        console.log(res);
+        this.coronaGlobal.recoverd = res.data.totalRecovered;
+      });
+  }
+
+  getCountriesProvinces() {
+    this.apiService.getCountriesProvinces()
+      .subscribe(res => {
+        console.log(res);
+        res.data.provinces.forEach(element => {
+          this.coronaVietnam.cases += this.formatNumber(element.Confirmed)
+          this.coronaVietnam.died += this.formatNumber(element.Deaths)
+          this.coronaVietnam.recoverd += this.formatNumber(element.Recovered)
+        });
+      });
+  }
+
+  private formatNumber(input) {
+    return input === null ? 0 : input*100/100
   }
 }

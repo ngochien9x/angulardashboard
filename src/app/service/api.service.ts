@@ -26,5 +26,24 @@ export class ApiService {
       );
   }
 
+  getDeadData(): Observable<any> {
+    return this.http.get(`${apiBE}/ncovid/dead`)
+      .pipe(
+        catchError(this.handleError('get data failed'))
+      );
+  }
+  
+  getRecoveredData(): Observable<any> {
+    return this.http.get(`${apiBE}/ncovid/recovered`)
+      .pipe(
+        catchError(this.handleError('get data failed'))
+      );
+  }
 
+  getCountriesProvinces(): Observable<any> {
+    return this.http.get(`${apiBE}/ncovid/countries`)
+      .pipe(
+        catchError(this.handleError('get data failed'))
+      );
+  }
 }
